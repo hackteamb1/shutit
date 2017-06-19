@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/shutit.iml" filepath="$PROJECT_DIR$/.idea/shutit.iml" />
+      <module fileurl="file://C:\Projects\shutit\.idea\shutit.iml" filepath="C:\Projects\shutit\.idea\shutit.iml" />
     </modules>
   </component>
 </project>

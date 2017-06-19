@@ -35,17 +35,17 @@ class QueueViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Queue.objects.filter(is_waiting=True).order_by('-id')
+    queryset = Queue.objects.all()
     serializer_class = QueueSerializer
+
 
 
 @api_view(['GET'])
 def passenger_state(request, passenger_id):
     try:
-        passenger_state = Queue.objects.filter(
-                        passenger=passenger_id, is_waiting=True).first()
+        passenger_state = Passenger.objects.get(id_number=passenger_id)
     except ObjectDoesNotExist:
-        content = {'message': 'You are not in the queue'}
+        content = {'message': 'You are not a user?'}
         return Response(content, status=status.HTTP_404_NOT_FOUND)
     serializer = StateSerializer(passenger_state, many=False, context={'request': request})
     return Response(serializer.data)
