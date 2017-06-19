@@ -1,4 +1,6 @@
+from django.contrib.auth.models import User
 from .models import _Passenger as Passenger
+
 
 class IDBackend(object):
     """
@@ -16,10 +18,10 @@ class IDBackend(object):
         if not pwd_valid:
             return None
 
-        return passenger
+        return passenger.user
 
-    def get_user(self, id_number):
+    def get_user(self, user_id):
         try:
-            return Passenger.objects.get(pk=id_number)
-        except Passenger.DoesNotExist:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
             return None
