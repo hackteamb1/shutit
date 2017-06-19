@@ -25,7 +25,8 @@ router.register(r'queue', views.QueueViewSet)
 
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^api/', include(router.urls)),
+    url(r'^api/state/(?P<passenger_id>[0-9]+)$', views.passenger_state),
     url(r'login$', login, name="login"),
     # url(r'signup$', signup_view, name="signup"),
     url(r'^admin/', admin.site.urls),
