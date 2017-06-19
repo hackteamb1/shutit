@@ -1,2 +1,2 @@
-from .Passenger import Passenger
-from .Queue import Queue
+from .Passenger import Passenger as _Passenger
+from .Queue import Queue as _Queue

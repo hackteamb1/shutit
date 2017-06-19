@@ -7,7 +7,7 @@ class Passenger(models.Model):
     """
 
     user = models.OneToOneField(to=User, null=False)
-    id_number = models.TextField(max_length=65, null=False)
+    id_number = models.TextField(max_length=65, null=False, unique=True, primary_key=True)
 
     def __str__(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)

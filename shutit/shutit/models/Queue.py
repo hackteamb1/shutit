@@ -1,5 +1,5 @@
 from django.db import models
-from models import Passenger
+from . import Passenger
 
 
 class Queue(models.Model):
