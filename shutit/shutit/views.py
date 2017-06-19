@@ -50,7 +50,8 @@ def signup_view(request):
             return render(request, "shutit/signup.html", context={'errors': errors})
         try:
             hashed_id_number = Passenger.hash_id_number(id_number)
-            user = User(username=hashed_id_number, first_name=first_name, last_name=last_name, email=email, password=password)
+            user = User(username=hashed_id_number, first_name=first_name, last_name=last_name, email=email)
+            user.set_password(password)
             user.save()
             passenger = Passenger(user=user, id_number=hashed_id_number)
             passenger.save()

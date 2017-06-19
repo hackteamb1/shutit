@@ -12,6 +12,10 @@ class Queue(models.Model):
         verbose_name = 'Queue'
         verbose_name_plural = 'Queues'
 
+
+    def __str__(self):
+        return self.name
+
     def increment_passenger_count(self):
         self.passengers_count += 1
 
