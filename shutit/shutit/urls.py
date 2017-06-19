@@ -22,7 +22,10 @@ router = routers.DefaultRouter()
 router.register(r'queue', views.QueueViewSet)
 
 urlpatterns = [
-    url(r'^api/state/(?P<passenger_id>[0-9]+)$', views.passenger_state),
+    url(r'^api/state/by_id/(?P<passenger_id>[0-9]+)$', views.passenger_state),
+    url(r'^api/state/amount/(?P<amount_of_top_users>[0-9]+)$' , views.queue_state),
+    url(r'^api/state/remove_by_id/$', views.remove_passenger_by_id),
+    url(r'^api/state/enter_by_id/$', views.enter_passenger_by_id),
     url(r'^$', views.index_view, name="index"),
     url(r'^api/', include(router.urls)),
     url(r'^login$', views.login_view, name="login"),
