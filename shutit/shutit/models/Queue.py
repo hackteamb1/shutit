@@ -5,7 +5,7 @@ class Queue(models.Model):
     """Holds the queue of awaiting users."""
 
     arrival_time = models.DateTimeField()
-    boarding_time = models.DateTimeField(blank=True)
+    boarding_time = models.DateTimeField(null=True, blank=True)
     is_waiting = models.BooleanField(default=True)
     passenger = models.ForeignKey(Passenger)
 
@@ -15,6 +15,6 @@ class Queue(models.Model):
         verbose_name = 'Queue'
         verbose_name_plural = 'Queues'
 
-    def __unicode__(self):
+    def __str__(self):
         """Unicode representation of Queue."""
-        pass
+        return "%s - %s" % (self.arrival_time, self.passenger.user.username)

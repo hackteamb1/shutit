@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import _Passenger as Passenger
 from .models import _Queue as Queue
 
