@@ -22,6 +22,6 @@ class Queue(models.Model):
 
 
     def decrease_passenger_count(self):
-        self.passengers_count -= 1
+        self.passengers_count = self.passengers_count - 1
         self.save()
 

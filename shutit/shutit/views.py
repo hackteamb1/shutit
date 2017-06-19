@@ -13,7 +13,7 @@ def index_view(request):
     if not request.user.is_authenticated():
         return redirect("login")
 
-    if not request.user.is_staff():
+    if not request.user.is_staff:
         return render(request, 'shutit/index.html')
     else:
         return render(request, 'shutit/staff.html')
@@ -101,14 +101,14 @@ def queue_state(request, amount_of_top_users):
     serializer = StateSerializer(passengers, many=True, context={'request': request})
     return Response(serializer.data)
 
-@api_view(['DELETE'])
+@api_view(['POST'])
 def remove_passenger_by_id(request):
-    import pdb; pdb.set_trace()
     passenger_id = request.data['passenger_id']
-    if (not Passenger.hash_id_number(passenger_id) == Passenger.objects.get(user=request.user).id_number) and not request.user.is_staff: #TODO: add prem to ktsinto.
-        content = {'message' : 'You do not have permissions for that!'}
-        return Response(content, status=status.HTTP_401_UNAUTHORIZED)
-    print("YES! you are auth")
+    if not request.user.is_staff:
+        if not (Passenger.hash_id_number(passenger_id) == Passenger.objects.get(user=request.user).id_number):
+            content = {'message': 'You do not have permissions for thact!'}
+            return Response(content, status=status.HTTP_401_UNAUTHORIZED)
+
     try:
         passenger = Passenger.objects.get(id_number=Passenger.hash_id_number(passenger_id))
     except Passenger.DoesNotExist:
@@ -119,7 +119,6 @@ def remove_passenger_by_id(request):
 
 @api_view(['POST'])
 def enter_passenger_by_id(request):
-    import pdb;pdb.set_trace()
     passenger_id = request.data['passenger_id']
     if not request.user.is_staff:
         if not (Passenger.hash_id_number(passenger_id) == Passenger.objects.get(user=request.user).id_number):

@@ -12,7 +12,7 @@ class Passenger(models.Model):
     user = models.OneToOneField(to=User, null=False)
     id_number = models.TextField(max_length=65, null=False, unique=True, primary_key=True)
     queue = models.ForeignKey(to=Queue, null=True, blank=True)
-    number_in_queue = models.IntegerField(null=True, blank=True, editable=False)
+    number_in_queue = models.IntegerField(null=True, blank=True, editable=True)#False)
 
     def __str__(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)
@@ -37,6 +37,9 @@ class Passenger(models.Model):
     def leave_queue(self):
         self.update_passenger_positions(self.number_in_queue)
         self.queue.decrease_passenger_count()
+        self.queue = None
+        self.number_in_queue = None
+        self.save()
 
     def get_queue_placement(self):
         return self.number_in_queue
