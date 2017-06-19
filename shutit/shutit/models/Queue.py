@@ -18,6 +18,7 @@ class Queue(models.Model):
     def get_passenger_count(self):
         return self.passengers_count
 
+
     def decrease_passenger_count(self):
         self.passengers_count -= 1
 
