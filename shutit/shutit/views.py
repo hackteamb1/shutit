@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-
+from django.contrib.auth import login, authenticate
+from rest_framework import viewsets
+from .serializers import QueueSerializer
+from .models import _Queue as Queue
 
 def index_view(request):
     return render(request, 'shutit/index.html')
@@ -23,3 +25,11 @@ def login_view(request):
 
 def signup_view(request):
     pass
+
+
+class QueueViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Queue.objects.filter(is_waiting=True)
+    serializer_class = QueueSerializer

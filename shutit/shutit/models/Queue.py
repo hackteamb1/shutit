@@ -1,6 +1,5 @@
 from django.db import models
-from . import Passenger
-
+from . import _Passenger as Passenger
 
 class Queue(models.Model):
     """Holds the queue of awaiting users."""
@@ -8,7 +7,7 @@ class Queue(models.Model):
     arrival_time = models.DateTimeField()
     boarding_time = models.DateTimeField(blank=True)
     is_waiting = models.BooleanField(default=True)
-    passanger = models.ForeignKey(Passenger)
+    passenger = models.ForeignKey(Passenger)
 
     class Meta:
         """Meta definition for Queue."""
