@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from .Queue import Queue
 
+from hashlib import sha256
+
 class Passenger(models.Model):
     """
     Represents a passenger, an extension for the User model.
@@ -35,3 +37,9 @@ class Passenger(models.Model):
         for passenger in Passenger.objects.filter(queue=self.queue):
             if passenger.number_in_queue > lowest_position:
                 passenger.number_in_queue -= 1
+
+    @staticmethod
+    def hash_id_number(id_number):
+        m = sha256()
+        m.update(id_number)
+        return m.digest()

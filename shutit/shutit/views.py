@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import QueueSerializer, StateSerializer
 from .models import _Queue as Queue
+from .models import _Passenger as Passenger
 
 def index_view(request):
     if request.user.is_authenticated():
@@ -16,7 +17,8 @@ def login_view(request):
     if request.POST:
         id_number = request.POST['id_number']
         password = request.POST['password']
-        user = authenticate(request, id_number=id_number, password=password)
+        hashed_id_number = Passenger.hash_id_number(id_number)
+        user = authenticate(request, id_number=hashed_id_number, password=password)
         if user:
             login(request, user)
             return redirect("index")
@@ -44,4 +46,15 @@ def passenger_state(request, passenger_id):
         content = {'message': 'You are not in the queue'}
         return Response(content, status=status.HTTP_404_NOT_FOUND)
     serializer = StateSerializer(passenger_state, many=False, context={'request': request})
+<<<<<<< Updated upstream
     return Response(serializer.data)
+=======
+    return Response(serializer.data)
+
+class QueueViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Queue.objects.filter(is_waiting=True)
+    serializer_class = QueueSerializer
+>>>>>>> Stashed changes
