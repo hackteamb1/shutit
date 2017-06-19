@@ -10,9 +10,14 @@ from .models import _Queue as Queue
 from .models import _Passenger as Passenger
 
 def index_view(request):
-    if request.user.is_authenticated():
+    if not request.user.is_authenticated():
+        return redirect("login")
+
+    if not request.user.is_staff():
         return render(request, 'shutit/index.html')
-    return redirect("login")
+    else:
+        return render(request, 'shutit/staff.html')
+
 
 def login_view(request):
     if request.POST:
