@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from rest_framework import viewsets
-from .serializers import QueueSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import QueueSerializer, StateSerializer
 from .models import _Queue as Queue
 
 def index_view(request):
@@ -37,9 +40,8 @@ def passenger_state(request, passenger_id):
     try:
         passenger_state = Queue.objects.filter(
                         passenger=passenger_id, is_waiting=True).first()
-    except ObjectDoesNotExist:
+    except Queue.DoesNotExist:
         content = {'message': 'You are not in the queue'}
         return Response(content, status=status.HTTP_404_NOT_FOUND)
     serializer = StateSerializer(passenger_state, many=False, context={'request': request})
     return Response(serializer.data)
-
