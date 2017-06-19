@@ -6,7 +6,12 @@
     </head>
     <body>
         <div class="signup-form">
-            <form action="login.html" method="post">
+            <form action="" method="post">
+                {% csrf_token %}
+                <p>שם פרטי</p>
+                <input type="text" name="first_name" value="גדי" />
+                <p>שם משפחה</p>
+                <input type="text" name="last_name" value="אייזנקוט" />
                 <p>מספר חוגר</p>
                 <input type="text" name="id_number" value="12345678" />
                 <p>כתובת דואר אלקטרוני</p>
