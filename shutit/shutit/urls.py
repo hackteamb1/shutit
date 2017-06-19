@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^login$', views.login_view, name="login"),
     url(r'^signup$', views.signup_view, name="signup"),
+    url(r'^signout$', views.signout_view, name="signout"),
     url(r'^admin/', admin.site.urls),
 ]
