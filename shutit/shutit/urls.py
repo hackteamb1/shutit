@@ -15,19 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from . import views
-from .views import login
-
 from rest_framework import routers
+from . import views
 
 router = routers.DefaultRouter()
 router.register(r'queue', views.QueueViewSet)
 
-
 urlpatterns = [
-    url(r'^api/', include(router.urls)),
     url(r'^api/state/(?P<passenger_id>[0-9]+)$', views.passenger_state),
-    url(r'login$', login, name="login"),
-    # url(r'signup$', signup_view, name="signup"),
+    url(r'^$', views.index_view, name="index"),
+    url(r'^api/', include(router.urls)),
+    url(r'^login$', views.login_view, name="login"),
+    url(r'^signup$', views.signup_view, name="signup"),
     url(r'^admin/', admin.site.urls),
 ]

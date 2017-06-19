@@ -1,6 +1,5 @@
 from django.db import models
-from .Passenger import Passenger
-
+from . import _Passenger as Passenger
 
 class Queue(models.Model):
     """Holds the queue of awaiting users."""
