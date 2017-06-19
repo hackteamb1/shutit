@@ -10,18 +10,16 @@
                 {% csrf_token %}
                 <p>מספר חוגר</p>
                 <input type="text" name="id_number" value="12345678" />
-                <p>כתובת דואר אלקטרוני</p>
-                <input type="text" name="email" value="someone@mail.com" />
                 <p>סיסמא</p>
                 <input type="password" name="password" value="12345678" />
-                <p>סיסמא שוב</p>
-                <input type="password" name="password_verify" value="12345678" />
                 <br />
                 <input type="submit" value="התחברות" />
-                <p class='text-error' id="form-error">
-                    <!-- Reserved for errors the user made -->
-                </p>
+                {% if wrong %}
+                    <p class='text-error'>
+                        המשתמש לא קיים או שהסיסמא לא נכונה
+                    </p>
                 {% endif %}
+
             </form>
         </div>
     </body>

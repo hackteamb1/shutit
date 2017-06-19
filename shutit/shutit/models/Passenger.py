@@ -11,7 +11,7 @@ class Passenger(models.Model):
 
     user = models.OneToOneField(to=User, null=False)
     id_number = models.TextField(max_length=65, null=False, unique=True, primary_key=True)
-    is_in_queue = models.BooleanField()
+    is_in_queue = models.BooleanField(default=False, null=False)
     number_in_queue = models.IntegerField(default=0, null=True)
     queue = models.ForeignKey(to=Queue, null=True)
 
@@ -40,6 +40,4 @@ class Passenger(models.Model):
 
     @staticmethod
     def hash_id_number(id_number):
-        m = sha256()
-        m.update(id_number)
-        return m.digest()
+        return sha256(id_number.encode('utf-8')).hexdigest()

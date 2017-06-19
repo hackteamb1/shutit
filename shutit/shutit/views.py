@@ -46,15 +46,11 @@ def passenger_state(request, passenger_id):
         content = {'message': 'You are not in the queue'}
         return Response(content, status=status.HTTP_404_NOT_FOUND)
     serializer = StateSerializer(passenger_state, many=False, context={'request': request})
-<<<<<<< Updated upstream
-    return Response(serializer.data)
-=======
     return Response(serializer.data)
 
 class QueueViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Queue.objects.filter(is_waiting=True)
+    queryset = Queue.objects.all()
     serializer_class = QueueSerializer
->>>>>>> Stashed changes
