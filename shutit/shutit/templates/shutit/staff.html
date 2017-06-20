@@ -3,17 +3,14 @@
     <head>
         <meta charset="utf-8">
         <title>Shut!t - Staff</title>
+        {% load static %}
     </head>
     <body>
-        <div id="next-up">
-            <h1>הבא בתור:</h1>
-            <h2><!--Container for next passenger--></h2>
+        <div id="passengers">
+            <!-- Passengers Placeholder -->
         </div>
-        <div id="operations">
-            <h2>פעולות על משתמש</h2>
-            <ul id="operations-list">
-                <!-- Container for operations -->
-            </ul>
-        </div>
+        <script src="https://fb.me/react-0.14.7.js"></script>
+        <script src="https://fb.me/react-dom-0.14.7.js"></script>
+        <script src="{% static 'shutit/js/staff.js' %}" charset="utf-8"></script>
     </body>
 </html>
