@@ -1,0 +1,20 @@
+{
+  "name": "shutit",
+  "version": "1.0.0",
+  "description": "A complex cyber solution for the Shuttle Queue cyber problem, using big-data cyber-space cloud security systems.",
+  "author": "HackTeamB1",
+  "license": "ISC",
+  "repository": "https://github.com/hackteamb1/shutit.git",
+  "scripts": {
+    "compile": "eslint js/* && rm -f ../shutit/static/shutit/js/*  && rm -f ../shutit/static/shutit/css/*  && rm -f ../shutit/templates/shutit/* && babel js/ --out-dir ../shutit/static/shutit/js/ && cp css/* ../shutit/static/shutit/css/ && cp templates/* ../shutit/templates/shutit/ "
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.1.0",
+    "path": "^0.12.7"
+  }
+}
