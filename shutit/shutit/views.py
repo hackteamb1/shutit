@@ -13,7 +13,7 @@ def index_view(request):
     if not request.user.is_authenticated():
         return redirect("login")
 
-    if not request.user.is_staff():
+    if not request.user.is_staff:
         return render(request, 'shutit/index.html')
     else:
         return render(request, 'shutit/staff.html')
@@ -84,13 +84,55 @@ def signout_view(request):
 @api_view(['GET'])
 def passenger_state(request, passenger_id):
     try:
-        passenger_state = Queue.objects.filter(
-                        passenger=passenger_id, is_waiting=True).first()
-    except Queue.DoesNotExist:
-        content = {'message': 'You are not in the queue'}
+        passenger = Passenger.objects.get(id_number=Passenger.hash_id_number(passenger_id))
+    except Passenger.DoesNotExist:
+        content = {'message': 'This user does not exist is the system'}
         return Response(content, status=status.HTTP_404_NOT_FOUND)
-    serializer = StateSerializer(passenger_state, many=False, context={'request': request})
+    serializer = StateSerializer(passenger, many=False, context={'request': request})
     return Response(serializer.data)
+
+@api_view(['GET'])
+def queue_state(request, amount_of_top_users):
+    try:
+        passengers = Passenger.objects.exclude(number_in_queue=None).order_by('number_in_queue')[:int(amount_of_top_users)]
+    except Passenger.DoesNotExist:
+        content = {'message': 'No passengers?'}
+        return Response(content, status=status.HTTP_404_NOT_FOUND)
+    serializer = StateSerializer(passengers, many=True, context={'request': request})
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def remove_passenger_by_id(request):
+    passenger_id = request.data['passenger_id']
+    if not request.user.is_staff:
+        if not (Passenger.hash_id_number(passenger_id) == Passenger.objects.get(user=request.user).id_number):
+            content = {'message': 'You do not have permissions for thact!'}
+            return Response(content, status=status.HTTP_401_UNAUTHORIZED)
+
+    try:
+        passenger = Passenger.objects.get(id_number=Passenger.hash_id_number(passenger_id))
+    except Passenger.DoesNotExist:
+        content = {'message': 'This user does not exist is the system'}
+        return Response(content, status=status.HTTP_404_NOT_FOUND)
+    passenger.leave_queue()
+    return redirect("index")
+
+@api_view(['POST'])
+def enter_passenger_by_id(request):
+    passenger_id = request.data['passenger_id']
+    if not request.user.is_staff:
+        if not (Passenger.hash_id_number(passenger_id) == Passenger.objects.get(user=request.user).id_number):
+            content = {'message': 'You do not have permissions for thact!'}
+            return Response(content, status=status.HTTP_401_UNAUTHORIZED)
+
+    try:
+        passenger = Passenger.objects.get(id_number=Passenger.hash_id_number(passenger_id))
+    except Passenger.DoesNotExist:
+        content = {'message': 'This user does not exist is the system'}
+        return Response(content, status=status.HTTP_404_NOT_FOUND)
+    queue = Queue.objects.all()[0]
+    passenger.enter_queue(queue)
+    return redirect('index')
 
 class QueueViewSet(viewsets.ModelViewSet):
     """

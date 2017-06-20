@@ -17,12 +17,11 @@ class Queue(models.Model):
         return self.name
 
     def increment_passenger_count(self):
-        self.passengers_count += 1
-
-    def get_passenger_count(self):
-        return self.passengers_count
+        self.passengers_count = self.passengers_count + 1
+        self.save()
 
 
     def decrease_passenger_count(self):
-        self.passengers_count -= 1
+        self.passengers_count = self.passengers_count - 1
+        self.save()
 
