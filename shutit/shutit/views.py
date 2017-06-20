@@ -8,6 +8,11 @@ from rest_framework import status
 from .serializers import QueueSerializer, StateSerializer
 from .models import _Queue as Queue
 from .models import _Passenger as Passenger
+import requests
+
+
+CAPTCHA_SECRET = "6LfFJyYUAAAAAK5EDPeNa3kl84AqtCZjkju5znNS"
+
 
 def index_view(request):
     if not request.user.is_authenticated():
@@ -40,6 +45,13 @@ def validate_fields(first_name, last_name, id_number, email, password, password_
     return None
     # TODO: This should return some error messages if the validation failes.
 
+def validate_captcha(captcha):
+    captcha_data = {"secret": CAPTCHA_SECRET, "response": captcha}
+    res = requests.post("https://www.google.com/recaptcha/api/siteverify", captcha_data)
+    return res.json()['success']
+
+
+
 def signup_view(request):
     if request.POST:
         first_name = request.POST['first_name']
@@ -48,8 +60,11 @@ def signup_view(request):
         email = request.POST['email']
         password = request.POST['password']
         password_verify = request.POST['password_verify']
-
+        captcha = request.POST['g-recaptcha-response']
         errors = validate_fields(first_name, last_name, id_number, email, password, password_verify)
+        errors = errors if errors else []
+        if not validate_captcha(captcha) == True:
+            errors.append("Captcha isn't verified.")
 
         if errors:
             return render(request, "shutit/signup.html", context={'errors': errors})

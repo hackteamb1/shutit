@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>ShutIt! - Sign Up</title>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body>
         <div class="signup-form">
@@ -20,10 +21,15 @@
                 <input type="password" name="password" value="12345678" />
                 <p>סיסמא שוב</p>
                 <input type="password" name="password_verify" value="12345678" />
+                <br /><br />
+                <div class="g-recaptcha" data-sitekey="6LfFJyYUAAAAAA_N-mtpKFo7hGe-Ktt6QviUBGrA"></div>
+                <br />
                 <input type="submit" value="הרשמה" />
-                <p class='text-error' id="form-error">
-                    <!-- Reserved for errors the user made -->
-                </p>
+                {% for error in errors %}
+                    <p class='text-error'>
+                        {{ error }}
+                    </p>
+                {% endfor %}
             </form>
         </div>
     </body>
