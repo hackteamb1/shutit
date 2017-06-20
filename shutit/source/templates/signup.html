@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ShutIt! - Sign Up</title>
+    </head>
+    <body>
+        <div class="signup-form">
+            <form action="" method="post">
+                {% csrf_token %}
+                <p>שם פרטי</p>
+                <input type="text" name="first_name" value="גדי" />
+                <p>שם משפחה</p>
+                <input type="text" name="last_name" value="אייזנקוט" />
+                <p>מספר חוגר</p>
+                <input type="text" name="id_number" value="12345678" />
+                <p>כתובת דואר אלקטרוני</p>
+                <input type="text" name="email" value="someone@mail.com" />
+                <p>סיסמא</p>
+                <input type="password" name="password" value="12345678" />
+                <p>סיסמא שוב</p>
+                <input type="password" name="password_verify" value="12345678" />
+                <input type="submit" value="הרשמה" />
+                <p class='text-error' id="form-error">
+                    <!-- Reserved for errors the user made -->
+                </p>
+            </form>
+        </div>
+    </body>
+</html>

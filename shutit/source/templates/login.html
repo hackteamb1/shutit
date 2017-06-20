@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ShutIt! - Login</title>
+    </head>
+    <body>
+        <div class="login-form">
+            <form action="" method="post">
+                {% csrf_token %}
+                <p>מספר חוגר</p>
+                <input type="text" name="id_number" value="12345678" />
+                <p>סיסמא</p>
+                <input type="password" name="password" value="12345678" />
+                <br />
+                <input type="submit" value="התחברות" />
+                {% if wrong %}
+                    <p class='text-error'>
+                        המשתמש לא קיים או שהסיסמא לא נכונה
+                    </p>
+                {% endif %}
+            </form>
+        </div>
+        <div id="register">
+            <a href="{% url 'login' %}">משתמש חדש? הרשם</a>
+        </div>
+    </body>
+</html>
