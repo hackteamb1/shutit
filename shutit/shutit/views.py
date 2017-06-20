@@ -14,7 +14,7 @@ def index_view(request):
         return redirect("login")
 
     if not request.user.is_staff:
-        return render(request, 'shutit/index.html')
+        return render(request, 'shutit/index.html', context={'passenger': Passenger.objects.get(user=request.user)})
     else:
         return render(request, 'shutit/staff.html')
 
@@ -83,8 +83,14 @@ def signout_view(request):
 
 @api_view(['GET'])
 def passenger_state(request, passenger_id):
-    try:
+    """try:
         passenger = Passenger.objects.get(id_number=Passenger.hash_id_number(passenger_id))
+    except Passenger.DoesNotExist:
+        content = {'message': 'This user does not exist is the system'}
+        return Response(content, status=status.HTTP_404_NOT_FOUND)
+"""
+    try:
+        passenger = Passenger.objects.get(id_number=passenger_id)
     except Passenger.DoesNotExist:
         content = {'message': 'This user does not exist is the system'}
         return Response(content, status=status.HTTP_404_NOT_FOUND)
