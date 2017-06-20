@@ -9,5 +9,5 @@ function fetchUpdatePosition() {
     });
   });
 };
-
+fetchUpdatePosition()
 setInterval(fetchUpdatePosition, 5000);

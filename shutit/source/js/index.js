@@ -7,4 +7,5 @@ function fetchUpdatePosition() { fetch('/api/state/by_id/' + id).then((response)
   });
   };
 
+
 setInterval(fetchUpdatePosition, 5000);
