@@ -108,15 +108,14 @@ def queue_state(request, amount_of_top_users):
     return Response(serializer.data)
 
 @api_view(['POST'])
-def remove_passenger_by_id(request):
-    passenger_id = request.data['passenger_id']
+def remove_passenger_by_position(request):
+    number_in_queue = request.data['number_in_queue']
     if not request.user.is_staff:
-        if not (Passenger.hash_id_number(passenger_id) == Passenger.objects.get(user=request.user).id_number):
-            content = {'message': 'You do not have permissions for thact!'}
-            return Response(content, status=status.HTTP_401_UNAUTHORIZED)
+        content = {'message': 'You do not have permissions for that!'}
+        return Response(content, status=status.HTTP_401_UNAUTHORIZED)
 
     try:
-        passenger = Passenger.objects.get(id_number=Passenger.hash_id_number(passenger_id))
+        passenger = Passenger.objects.get(number_in_queue=number_in_queue)
     except Passenger.DoesNotExist:
         content = {'message': 'This user does not exist is the system'}
         return Response(content, status=status.HTTP_404_NOT_FOUND)
@@ -128,7 +127,7 @@ def enter_passenger_by_id(request):
     passenger_id = request.data['passenger_id']
     if not request.user.is_staff:
         if not (Passenger.hash_id_number(passenger_id) == Passenger.objects.get(user=request.user).id_number):
-            content = {'message': 'You do not have permissions for thact!'}
+            content = {'message': 'You do not have permissions for that!'}
             return Response(content, status=status.HTTP_401_UNAUTHORIZED)
 
     try:

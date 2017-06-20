@@ -25,8 +25,7 @@ SECRET_KEY = 'pzu$0j&hi4)@vf@j2lf-0pbqxp@pxxq*c-23(w_djxx2+nmvn6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -133,3 +132,4 @@ REST_FRAMEWORK = {
     # ],
     'PAGE_SIZE': 50
 }
+
