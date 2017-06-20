@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+		{% load staticfiles %}
         <meta charset="utf-8">
         <title>ShutIt!</title>
         {% load static %}
@@ -10,6 +11,12 @@
         <br/><br/>
         <h2>Welcome {{ user.first_name }} {{ user.last_name }}</h2>
         <br/>
+		<h3>Your Number is: </h3>
+		<p id="position"></p>
         <a href="{% url 'signout' %}">Logout</a>
-    </body>
+        <script>
+            var id="{{passenger.id_number}}";
+        </script>
+		<script src="{% static 'shutit/js/index.js' %}"></script>
+	</body>
 </html>
