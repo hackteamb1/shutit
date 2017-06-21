@@ -96,7 +96,7 @@ var PassengerFetcher = function (_React$Component2) {
         _this2.state = { rendered: null };
         setInterval(function () {
             _this2.fetchPassengers();
-        }, 2000);
+        }, 1000);
         return _this2;
     }
 

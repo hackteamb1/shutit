@@ -12,4 +12,4 @@ function fetchUpdatePosition() {
 };
 
 fetchUpdatePosition();
-setInterval(fetchUpdatePosition, 5000);
+setInterval(fetchUpdatePosition, 1000);
